@@ -49,6 +49,9 @@
 
   --quote-halo: rgba(255, 255, 255, 0.02);
   --table-row-hover: rgba(255, 255, 255, 0.02);
+  --motion-fast: 0.16s;
+  --motion-medium: 0.22s;
+  --motion-page: 0.18s;
 }
 
 * {
@@ -70,7 +73,7 @@ body {
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
-  transition: background-color 0.45s ease, color 0.45s ease;
+  transition: background-color var(--motion-medium) ease, color var(--motion-medium) ease;
 }
 
 h1,
@@ -221,7 +224,7 @@ body.light-mode .bg-elevated {
   border-radius: 999px;
   color: var(--text-muted);
   background: color-mix(in srgb, var(--bg-main) 82%, transparent);
-  transition: all 0.25s ease;
+  transition: all var(--motion-fast) ease;
 }
 
 .mobile-nav-chip:hover {
@@ -296,7 +299,7 @@ body.light-mode .bg-elevated {
 .theme-toggle {
   border: 1px solid var(--toggle-border);
   color: var(--text-soft);
-  transition: all 0.3s ease;
+  transition: all var(--motion-fast) ease;
 }
 
 .theme-toggle:hover {
@@ -306,7 +309,7 @@ body.light-mode .bg-elevated {
 .action-link {
   border-color: var(--btn-secondary-border);
   color: var(--text-soft);
-  transition: all 0.3s ease;
+  transition: all var(--motion-fast) ease;
 }
 
 .action-link:hover {
@@ -324,7 +327,7 @@ body.light-mode .bg-elevated {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  transition: filter 0.6s ease;
+  transition: filter var(--motion-medium) ease;
 }
 
 .hero-accent-line {
@@ -349,9 +352,10 @@ h1:hover .gradient-text {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--panel-border);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--motion-medium) cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
-  animation: gentleFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: gentleFadeIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
 }
 
 .glass-panel:hover {
@@ -362,23 +366,23 @@ h1:hover .gradient-text {
 }
 
 .glass-panel:nth-of-type(1) {
-  animation-delay: 0.1s;
+  animation-delay: 0.04s;
 }
 
 .glass-panel:nth-of-type(2) {
-  animation-delay: 0.2s;
+  animation-delay: 0.08s;
 }
 
 .glass-panel:nth-of-type(3) {
-  animation-delay: 0.3s;
+  animation-delay: 0.12s;
 }
 
 .glass-panel:nth-of-type(4) {
-  animation-delay: 0.4s;
+  animation-delay: 0.16s;
 }
 
 .glass-panel:nth-of-type(5) {
-  animation-delay: 0.5s;
+  animation-delay: 0.2s;
 }
 
 .accent-glow {
@@ -563,7 +567,7 @@ h1:hover .gradient-text {
 }
 
 .comparison-table tbody tr {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--motion-fast) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .comparison-mobile-card {
@@ -573,7 +577,7 @@ h1:hover .gradient-text {
 .faq-item {
   background: var(--metric-bg);
   border: 1px solid var(--line-subtle);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--motion-medium) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .faq-item > summary:hover {
@@ -637,7 +641,7 @@ h1:hover .gradient-text {
   color: var(--btn-primary-color);
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all var(--motion-fast) ease;
 }
 
 .btn-primary::after {
@@ -650,7 +654,7 @@ h1:hover .gradient-text {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
   opacity: 0;
   transform: scale(0.5);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity var(--motion-fast) ease, transform var(--motion-fast) ease;
 }
 
 .btn-primary:hover::after {
@@ -666,7 +670,7 @@ h1:hover .gradient-text {
   background: transparent;
   border: 1px solid var(--btn-secondary-border);
   color: var(--btn-secondary-color);
-  transition: all 0.3s ease;
+  transition: all var(--motion-fast) ease;
 }
 
 .btn-secondary:hover {
@@ -740,44 +744,62 @@ h1:hover .gradient-text {
 }
 
 .fade-in {
-  animation: gentleFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: gentleFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .tech-fade-section {
   opacity: 0;
-  animation: gentleFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: gentleFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .tech-fade-section:nth-of-type(1) {
-  animation-delay: 0.2s;
+  animation-delay: 0.05s;
 }
 
 .tech-fade-section:nth-of-type(2) {
-  animation-delay: 0.3s;
+  animation-delay: 0.09s;
 }
 
 .tech-fade-section:nth-of-type(3) {
-  animation-delay: 0.4s;
+  animation-delay: 0.13s;
 }
 
 .tech-fade-section:nth-of-type(4) {
-  animation-delay: 0.5s;
+  animation-delay: 0.17s;
 }
 
 .tech-fade-section:nth-of-type(5) {
-  animation-delay: 0.6s;
+  animation-delay: 0.21s;
 }
 
 .tech-fade-section:nth-of-type(6) {
-  animation-delay: 0.7s;
+  animation-delay: 0.25s;
 }
 
 .tech-fade-section:nth-of-type(7) {
-  animation-delay: 0.8s;
+  animation-delay: 0.29s;
 }
 
 .tech-fade-section:nth-of-type(8) {
-  animation-delay: 0.9s;
+  animation-delay: 0.33s;
+}
+
+.page-frame {
+  will-change: opacity, transform;
+  transition: opacity var(--motion-page) ease, transform var(--motion-page) ease;
+}
+
+.page-frame.is-transitioning {
+  opacity: 0.97;
+  transform: translateY(2px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
 }
 
 body.light-mode {

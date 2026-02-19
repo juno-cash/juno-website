@@ -1,11 +1,17 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
+import {
+  FOOTER_LINK_COLUMNS,
+  GET_STARTED_LINK_CONFIG,
+  HEADER_NAV_CONFIG,
+  HOME_LINK_CONFIG,
+  INTERNAL_ROUTE_PATHS,
+  NAV_LINKS,
+  ROUTES,
+  TECHNOLOGY_RESOURCE_LINK_CONFIG,
+} from './config/siteLinks'
 
-const NAV_LINKS = [
-  { label: 'Home', pageHref: '/' },
-  { label: 'Technology', pageHref: '/technology' },
-  { label: 'FAQ', pageHref: '/faq' },
-]
+const INTERNAL_ROUTES = new Set(INTERNAL_ROUTE_PATHS)
 
 const SPARKLES = [
   { top: '15%', left: '20%', size: 2, delay: '0s' },
@@ -238,21 +244,6 @@ const FAQ_SECTIONS = [
   },
 ]
 
-const FOOTER_COLUMNS = [
-  {
-    title: 'Resources',
-    links: ['Get Started', 'Technology', 'Mining Guide', 'Whitepaper'],
-  },
-  {
-    title: 'Community',
-    links: ['Discord', 'Telegram', 'X (Twitter)', 'GitHub'],
-  },
-  {
-    title: 'Developers',
-    links: ['Releases', 'Explorer (dedoo)', 'JunoCash SDK', 'GPG Key'],
-  },
-]
-
 const LOGO_BY_THEME = {
   light: '/logos/juno-rec-black.svg',
   dark: '/logos/juno-rec-white.svg',
@@ -263,7 +254,7 @@ const START_PATHWAYS = [
     title: 'Run a Full Node',
     description:
       'Support the decentralized network with maximum sovereignty. Includes a built-in wallet and full chain validation.',
-    href: 'https://github.com/juno-cash/junocash/releases',
+    href: GET_STARTED_LINK_CONFIG.pathways.runFullNode,
     cta: 'Download from GitHub',
     primary: true,
     icon: 'node',
@@ -272,7 +263,7 @@ const START_PATHWAYS = [
     title: 'Get a Wallet',
     description:
       'Use a lightweight wallet for daily private transfers. Fast setup and simple UX for regular payments.',
-    href: 'https://github.com/juno-cash/junocash',
+    href: GET_STARTED_LINK_CONFIG.pathways.getWallet,
     cta: 'Get Juno Wallet',
     primary: false,
     icon: 'wallet',
@@ -281,7 +272,7 @@ const START_PATHWAYS = [
     title: 'Start Mining',
     description:
       'Mine Juno Cash with CPU-friendly RandomX. No specialized hardware required to participate in network security.',
-    href: 'https://github.com/juno-cash/junocash',
+    href: GET_STARTED_LINK_CONFIG.pathways.startMining,
     cta: 'Mining Guide',
     primary: false,
     icon: 'mining',
@@ -293,7 +284,7 @@ const ACQUIRE_OPTIONS = [
     title: 'Mine it yourself',
     description:
       'Juno Cash uses CPU-friendly RandomX mining. Join a pool or mine solo using commodity hardware.',
-    href: 'https://github.com/juno-cash/junocash',
+    href: GET_STARTED_LINK_CONFIG.acquire.mineYourself,
     cta: 'Read the mining guide',
     icon: 'pickaxe',
   },
@@ -301,7 +292,7 @@ const ACQUIRE_OPTIONS = [
     title: 'Accept payments',
     description:
       'Accept Juno Cash for goods and services with private-by-default settlement and no custodial intermediaries.',
-    href: 'https://github.com/juno-cash/junocash',
+    href: GET_STARTED_LINK_CONFIG.acquire.acceptPayments,
     cta: 'Set up JunoPayServer',
     icon: 'payments',
   },
@@ -311,25 +302,25 @@ const LEARN_MORE_RESOURCES = [
   {
     title: 'Technology',
     subtitle: 'How it works',
-    href: '/#technology',
+    href: GET_STARTED_LINK_CONFIG.learnMore.technology,
     icon: 'technology',
   },
   {
     title: 'FAQ',
     subtitle: 'Common questions',
-    href: '/faq',
+    href: GET_STARTED_LINK_CONFIG.learnMore.faq,
     icon: 'faq',
   },
   {
     title: 'Block Explorer',
     subtitle: 'junocash.dedoo.xyz',
-    href: 'https://junocash.dedoo.xyz',
+    href: GET_STARTED_LINK_CONFIG.learnMore.blockExplorer,
     icon: 'explorer',
   },
   {
     title: 'Discord',
     subtitle: 'Get help & support',
-    href: '#',
+    href: GET_STARTED_LINK_CONFIG.learnMore.discord,
     icon: 'discord',
   },
 ]
@@ -456,18 +447,18 @@ const TECH_RESOURCES = [
     title: 'Juno Cash Resources',
     accent: true,
     links: [
-      { label: 'Juno Cash Whitepaper (PDF)', href: 'https://github.com/juno-cash/junocash' },
-      { label: 'Juno Cash GitHub', href: 'https://github.com/juno-cash/junocash' },
+      { label: 'Juno Cash Whitepaper (PDF)', href: TECHNOLOGY_RESOURCE_LINK_CONFIG.junoWhitepaper },
+      { label: 'Juno Cash GitHub', href: TECHNOLOGY_RESOURCE_LINK_CONFIG.junoGithub },
     ],
   },
   {
     title: 'External Resources',
     accent: false,
     links: [
-      { label: 'Orchard Protocol Specification', href: 'https://zips.z.cash/protocol/protocol.pdf' },
-      { label: 'Halo 2 Book', href: 'https://zcash.github.io/halo2/' },
-      { label: 'Halo: Recursive Proof Composition', href: 'https://eprint.iacr.org/2019/1021' },
-      { label: 'RandomX Algorithm', href: 'https://github.com/tevador/RandomX' },
+      { label: 'Orchard Protocol Specification', href: TECHNOLOGY_RESOURCE_LINK_CONFIG.orchardSpecification },
+      { label: 'Halo 2 Book', href: TECHNOLOGY_RESOURCE_LINK_CONFIG.halo2Book },
+      { label: 'Halo: Recursive Proof Composition', href: TECHNOLOGY_RESOURCE_LINK_CONFIG.haloRecursivePaper },
+      { label: 'RandomX Algorithm', href: TECHNOLOGY_RESOURCE_LINK_CONFIG.randomX },
     ],
   },
 ]
@@ -619,15 +610,15 @@ function resolveNavHref(link) {
 
 function isNavLinkActive(link, currentPage) {
   if (currentPage === 'home') {
-    return link.pageHref === '/'
+    return link.pageHref === ROUTES.HOME
   }
 
   if (currentPage === 'technology') {
-    return link.pageHref === '/technology'
+    return link.pageHref === ROUTES.TECHNOLOGY
   }
 
   if (currentPage === 'faq') {
-    return link.pageHref === '/faq'
+    return link.pageHref === ROUTES.FAQ
   }
 
   return false
@@ -665,12 +656,12 @@ function HeaderNav({ theme, onToggleTheme, currentPage }) {
     ...link,
     href: resolveNavHref(link),
   }))
-  const action = { label: 'Get Started', href: '/get-started' }
+  const action = HEADER_NAV_CONFIG.action
 
   return (
     <nav className="site-nav fixed w-full z-50 top-0 left-0 border-b">
       <div className="max-w-7xl mx-auto px-6 sm:px-7 h-[4.75rem] sm:h-[5.5rem] flex items-center justify-between">
-        <a href="/" className="nav-brand group cursor-pointer" aria-label="Juno Cash home">
+        <a href={HEADER_NAV_CONFIG.brandHref} className="nav-brand group cursor-pointer" aria-label="Juno Cash home">
           <img src={logoSrc} alt="Juno Cash" className="brand-logo brand-logo-nav group-hover:opacity-85 transition-opacity" />
         </a>
 
@@ -761,11 +752,11 @@ function HeroSection() {
       </p>
 
       <div className="flex flex-col md:flex-row gap-3 sm:gap-6 items-center w-full max-w-sm md:w-auto md:max-w-none">
-        <a href="/get-started" className="btn-primary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest font-semibold">
-          Get Started
+        <a href={HOME_LINK_CONFIG.heroPrimary.href} className="btn-primary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest font-semibold">
+          {HOME_LINK_CONFIG.heroPrimary.label}
         </a>
-        <a href="#technology" className="btn-secondary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest">
-          Read Whitepaper
+        <a href={HOME_LINK_CONFIG.heroSecondary.href} className="btn-secondary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest">
+          {HOME_LINK_CONFIG.heroSecondary.label}
         </a>
       </div>
 
@@ -929,7 +920,7 @@ function HeritageSection() {
 
 function FAQPage() {
   return (
-    <main id="faq-top" className="relative z-10 pt-36 md:pt-40 pb-16 sm:pb-20">
+    <main id="faq-top" className="relative z-10 pt-40 md:pt-40 pb-16 sm:pb-20">
       <header className="text-center px-5 sm:px-6 mb-14 sm:mb-16 fade-in">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6">
           <span className="serif italic gradient-text text-glow">Common Questions</span>
@@ -976,7 +967,7 @@ function FAQPage() {
 
 function GetStartedPage() {
   return (
-    <main className="relative z-10 pt-36 md:pt-40 pb-16 sm:pb-20">
+    <main className="relative z-10 pt-40 md:pt-40 pb-16 sm:pb-20">
       <header className="text-center px-5 sm:px-6 mb-20 sm:mb-24 fade-in">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6">
           <span className="serif italic gradient-text text-glow">Get Started</span>
@@ -1037,8 +1028,13 @@ function GetStartedPage() {
                 <p className="text-dim text-sm leading-relaxed mb-4">
                   Get the latest Juno Cash release for Linux, macOS, or Windows. Verify release signatures before running binaries.
                 </p>
-                <a href="https://github.com/juno-cash/junocash/releases" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 accent-text text-sm hover:underline underline-offset-4">
-                  <span>View releases on GitHub</span>
+                <a
+                  href={GET_STARTED_LINK_CONFIG.setup.releases.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 accent-text text-sm hover:underline underline-offset-4"
+                >
+                  <span>{GET_STARTED_LINK_CONFIG.setup.releases.label}</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
@@ -1176,7 +1172,7 @@ function GetStartedPage() {
 
 function TechnologyPage() {
   return (
-    <main className="relative z-10 pt-36 md:pt-40 pb-16 sm:pb-20">
+    <main className="relative z-10 pt-40 md:pt-40 pb-16 sm:pb-20">
       <header className="text-center px-5 sm:px-6 mb-20 sm:mb-24 fade-in">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6">
           <span className="serif italic gradient-text text-glow">Technology</span>
@@ -1465,14 +1461,14 @@ function FooterSection({ theme }) {
           </div>
         </div>
 
-        {FOOTER_COLUMNS.map((column) => (
+        {FOOTER_LINK_COLUMNS.map((column) => (
           <div key={column.title}>
             <h5 className="mono text-xs uppercase tracking-widest accent-text mb-6">{column.title}</h5>
             <ul className="space-y-4 text-sm text-dim">
               {column.links.map((link) => (
-                <li key={link}>
-                  <a href="#" className="footer-link transition-colors">
-                    {link}
+                <li key={link.label}>
+                  <a href={link.href} className="footer-link transition-colors">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -1516,10 +1512,31 @@ function getPathname() {
   return path.length > 0 ? path : '/'
 }
 
+function normalizePath(pathname) {
+  const path = pathname.replace(/\/+$/, '')
+  return path.length > 0 ? path : '/'
+}
+
+function scrollToHash(hash, behavior = 'smooth') {
+  const id = decodeURIComponent(hash.replace(/^#/, ''))
+  if (!id) {
+    return false
+  }
+
+  const target = document.getElementById(id)
+  if (!target) {
+    return false
+  }
+
+  target.scrollIntoView({ behavior, block: 'start' })
+  return true
+}
+
 function App() {
-  const currentPath = getPathname()
+  const [currentPath, setCurrentPath] = useState(() => getPathname())
+  const [isPageTransitioning, setIsPageTransitioning] = useState(false)
   const currentPage =
-    currentPath === '/get-started' ? 'get-started' : currentPath === '/faq' ? 'faq' : currentPath === '/technology' ? 'technology' : 'home'
+    currentPath === ROUTES.GET_STARTED ? 'get-started' : currentPath === ROUTES.FAQ ? 'faq' : currentPath === ROUTES.TECHNOLOGY ? 'technology' : 'home'
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -1554,6 +1571,112 @@ function App() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
+  const navigateInternal = useCallback(
+    (nextPath, hash = '') => {
+      const normalizedNextPath = normalizePath(nextPath)
+      const samePath = normalizedNextPath === currentPath
+      const sameHash = hash === window.location.hash
+
+      if (samePath && sameHash) {
+        return
+      }
+
+      const commitNavigation = () => {
+        const nextUrl = `${normalizedNextPath}${hash}`
+
+        if (samePath) {
+          window.history.replaceState({}, '', nextUrl)
+        } else {
+          window.history.pushState({}, '', nextUrl)
+          setCurrentPath(normalizedNextPath)
+        }
+
+        window.requestAnimationFrame(() => {
+          if (hash) {
+            const didScroll = scrollToHash(hash, 'smooth')
+            if (!didScroll && !samePath) {
+              window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+            }
+            return
+          }
+
+          if (!samePath) {
+            window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+          }
+        })
+      }
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const supportsViewTransitions = typeof document.startViewTransition === 'function'
+
+      if (!prefersReducedMotion && supportsViewTransitions) {
+        document.startViewTransition(commitNavigation)
+        return
+      }
+
+      setIsPageTransitioning(true)
+      commitNavigation()
+      window.setTimeout(() => setIsPageTransitioning(false), 150)
+    },
+    [currentPath],
+  )
+
+  const handleInternalNavigation = useCallback(
+    (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return
+      }
+
+      const target = event.target
+      if (!(target instanceof Element)) {
+        return
+      }
+
+      const anchor = target.closest('a[href]')
+      if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) {
+        return
+      }
+
+      const rawHref = anchor.getAttribute('href')
+      if (!rawHref || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:') || rawHref.startsWith('javascript:')) {
+        return
+      }
+      if (rawHref === '#') {
+        event.preventDefault()
+        return
+      }
+
+      const url = new URL(rawHref, window.location.href)
+      if (url.origin !== window.location.origin) {
+        return
+      }
+
+      const nextPath = normalizePath(url.pathname)
+      const samePathHashNavigation = nextPath === currentPath && Boolean(url.hash)
+      if (!INTERNAL_ROUTES.has(nextPath) && !samePathHashNavigation) {
+        return
+      }
+
+      event.preventDefault()
+      navigateInternal(nextPath, url.hash)
+    },
+    [currentPath, navigateInternal],
+  )
+
+  useEffect(() => {
+    const onPopState = () => {
+      setCurrentPath(getPathname())
+      window.requestAnimationFrame(() => {
+        if (window.location.hash) {
+          scrollToHash(window.location.hash, 'auto')
+        }
+      })
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
+
   useEffect(() => {
     const onScroll = () => {
       setParallax(Math.min(window.scrollY * 0.06, 80))
@@ -1567,11 +1690,13 @@ function App() {
   const themeLabel = useMemo(() => (theme === 'light' ? 'dark' : 'light'), [theme])
 
   return (
-    <div className="site-shell antialiased selection:bg-yellow-100 selection:text-black">
+    <div className="site-shell antialiased selection:bg-yellow-100 selection:text-black" onClickCapture={handleInternalNavigation}>
       <SparkleField parallax={parallax} />
       <HeaderNav theme={theme} onToggleTheme={() => setTheme(themeLabel)} currentPage={currentPage} />
-      {currentPage === 'get-started' ? <GetStartedPage /> : currentPage === 'technology' ? <TechnologyPage /> : currentPage === 'faq' ? <FAQPage /> : <HomePage />}
-      <FooterSection theme={theme} />
+      <div className={`page-frame ${isPageTransitioning ? 'is-transitioning' : ''}`}>
+        {currentPage === 'get-started' ? <GetStartedPage /> : currentPage === 'technology' ? <TechnologyPage /> : currentPage === 'faq' ? <FAQPage /> : <HomePage />}
+        <FooterSection theme={theme} />
+      </div>
     </div>
   )
 }
