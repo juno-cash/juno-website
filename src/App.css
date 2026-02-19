@@ -196,6 +196,38 @@ body.light-mode .bg-elevated {
   -webkit-backdrop-filter: blur(12px);
 }
 
+.mobile-nav-scroll {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.1rem;
+}
+
+.mobile-nav-chip {
+  flex: 0 0 auto;
+  text-decoration: none;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--bg-main) 82%, transparent);
+  transition: all 0.25s ease;
+}
+
+.mobile-nav-chip:hover {
+  color: var(--text-soft);
+  border-color: color-mix(in srgb, var(--text-soft) 45%, transparent);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .brand-mark {
   color: var(--text-soft);
 }
@@ -330,6 +362,12 @@ h1:hover .gradient-text {
   background: var(--metric-bg);
 }
 
+.hero-mobile-stat {
+  background: color-mix(in srgb, var(--bg-main) 84%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 .quote-halo {
   background: var(--quote-halo);
 }
@@ -345,6 +383,10 @@ h1:hover .gradient-text {
 
 .comparison-table tbody tr {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.comparison-mobile-card {
+  background: color-mix(in srgb, var(--bg-main) 90%, transparent);
 }
 
 .faq-item {
@@ -585,6 +627,25 @@ body.light-mode .gradient-text {
   background-clip: text;
 }
 
+body.light-mode .mobile-nav-chip {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.16);
+  color: rgba(0, 0, 0, 0.72);
+}
+
+body.light-mode .mobile-nav-chip:hover {
+  color: rgba(0, 0, 0, 0.95);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .hero-mobile-stat {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode .comparison-mobile-card {
+  background: rgba(0, 0, 0, 0.03);
+}
+
 body.light-mode .text-glow {
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
 }
@@ -607,6 +668,15 @@ body.light-mode .glass-panel:hover {
 }
 
 @media (max-width: 768px) {
+  .site-nav {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .glass-panel {
+    animation-delay: 0s !important;
+  }
+
   .hero-accent-line {
     padding-bottom: 0.34rem;
   }

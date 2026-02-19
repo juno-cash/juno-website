@@ -205,10 +205,10 @@ function SparkleField({ parallax }) {
 function HeaderNav({ theme, onToggleTheme }) {
   return (
     <nav className="site-nav fixed w-full z-50 top-0 left-0 border-b">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         <div className="flex items-center gap-2 group cursor-pointer">
           <div className="w-2 h-2 rounded-full site-dot group-hover:scale-125 transition-transform" />
-          <span className="serif text-2xl tracking-wide brand-mark group-hover:opacity-85 transition-opacity italic">
+          <span className="serif text-xl sm:text-2xl tracking-wide brand-mark group-hover:opacity-85 transition-opacity italic">
             Juno
           </span>
         </div>
@@ -221,7 +221,7 @@ function HeaderNav({ theme, onToggleTheme }) {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <button
             id="themeToggle"
             className="theme-toggle p-2 rounded-full"
@@ -256,9 +256,22 @@ function HeaderNav({ theme, onToggleTheme }) {
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
+          <a href="#features" className="md:hidden px-3 py-1.5 border rounded-full mono text-[10px] uppercase action-link">
+            Start
+          </a>
           <a href="#features" className="hidden md:block px-6 py-2 border rounded-full mono text-xs uppercase action-link">
             Get Started
           </a>
+        </div>
+      </div>
+
+      <div className="md:hidden px-5 sm:px-6 pb-3">
+        <div className="mobile-nav-scroll no-scrollbar">
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="mobile-nav-chip mono text-[10px] uppercase tracking-[0.18em]">
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
@@ -267,28 +280,37 @@ function HeaderNav({ theme, onToggleTheme }) {
 
 function HeroSection() {
   return (
-    <header className="relative min-h-screen flex flex-col justify-center items-center text-center px-5 sm:px-6 pt-20 z-10 fade-in">
+    <header className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-5 sm:px-6 pt-32 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
       <div className="status-pill mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         <span className="mono text-[10px] uppercase tracking-widest">Mainnet Live</span>
       </div>
 
-      <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light leading-[1] tracking-tight mb-8 overflow-visible max-w-6xl">
+      <h1 className="text-[2.75rem] sm:text-6xl md:text-8xl lg:text-9xl font-light leading-[1] tracking-tight mb-7 sm:mb-8 overflow-visible max-w-6xl">
         <span className="block hero-leading">Private</span>
         <span className="block serif italic gradient-text text-glow hero-accent-line pb-2 md:pb-3">Digital Cash</span>
       </h1>
 
-      <p className="max-w-xl mx-auto text-base sm:text-lg body-muted font-light leading-relaxed mb-12 px-2">
+      <p className="max-w-xl mx-auto text-[15px] sm:text-lg body-muted font-light leading-relaxed mb-10 sm:mb-12 px-2">
         Every transaction shielded using zero-knowledge proofs. No transparent addresses. No exceptions.
       </p>
 
-      <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-center">
-        <a href="#features" className="btn-primary px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest font-semibold">
+      <div className="flex flex-col md:flex-row gap-3 sm:gap-6 items-center w-full max-w-sm md:max-w-none">
+        <a href="#features" className="btn-primary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest font-semibold">
           Get Started
         </a>
-        <a href="#technology" className="btn-secondary px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest">
+        <a href="#technology" className="btn-secondary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest">
           Read Whitepaper
         </a>
+      </div>
+
+      <div className="mt-9 grid w-full max-w-md grid-cols-2 gap-3 text-left md:hidden">
+        {HERO_STATS.map((item) => (
+          <div key={item.label} className="hero-mobile-stat rounded-sm border border-soft p-3">
+            <div className="mono text-[10px] text-faint uppercase mb-1 tracking-[0.16em]">{item.label}</div>
+            <div className="text-base serif italic stat-value">{item.value}</div>
+          </div>
+        ))}
       </div>
 
       <div className="absolute bottom-8 lg:bottom-12 w-full max-w-6xl mx-auto px-6 hidden md:grid grid-cols-4 gap-4 text-left border-t border-soft pt-8">
@@ -305,10 +327,10 @@ function HeroSection() {
 
 function FeaturesSection() {
   return (
-    <section id="features" className="py-24 sm:py-32 relative z-10 section-gradient">
+    <section id="features" className="py-16 sm:py-24 lg:py-32 relative z-10 section-gradient">
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="glass-panel p-8 md:p-12 col-span-1 md:col-span-2 relative overflow-hidden group">
+          <div className="glass-panel p-6 sm:p-8 md:p-12 col-span-1 md:col-span-2 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 accent-glow rounded-full blur-[80px] group-hover:opacity-70 transition-opacity" />
             <div className="relative z-10">
               <div className="mono text-xs accent-text accent-tag inline-block px-2 py-1 rounded mb-6">Mandatory Privacy</div>
@@ -321,11 +343,11 @@ function FeaturesSection() {
           </div>
 
           {FEATURE_CARDS.map((card) => (
-            <article key={card.title} className="glass-panel p-8 relative group">
-              <div className="mb-6 opacity-80">
+            <article key={card.title} className="glass-panel p-6 sm:p-8 relative group">
+              <div className="mb-5 sm:mb-6 opacity-80">
                 <Icon type={card.icon} />
               </div>
-              <h4 className="text-2xl serif mb-3 heading-color">{card.title}</h4>
+              <h4 className="text-[1.65rem] sm:text-2xl serif mb-3 heading-color">{card.title}</h4>
               <p className="text-sm text-dim leading-relaxed">{card.description}</p>
             </article>
           ))}
@@ -337,11 +359,11 @@ function FeaturesSection() {
 
 function TechnologySection() {
   return (
-    <section id="technology" className="py-24 sm:py-32 relative overflow-hidden">
+    <section id="technology" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center relative z-10">
         <span className="mono text-xs uppercase tracking-[0.2em] accent-text mb-4 block">Core Technology</span>
         <h2 className="text-4xl sm:text-5xl md:text-6xl serif mb-8 heading-color">Powered by Zero-Knowledge</h2>
-        <p className="text-base sm:text-lg body-muted leading-relaxed mb-16">
+        <p className="text-base sm:text-lg body-muted leading-relaxed mb-12 sm:mb-16">
           Zero-knowledge proofs are the cryptographic breakthrough of the decade. They let you prove something is true without revealing the
           underlying data.
           <br />
@@ -364,11 +386,11 @@ function TechnologySection() {
 
 function PhilosophySection() {
   return (
-    <section id="philosophy" className="py-28 sm:py-40 flex items-center justify-center relative bg-subtle">
+    <section id="philosophy" className="py-20 sm:py-32 md:py-40 flex items-center justify-center relative bg-subtle">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] max-w-[600px] h-[75vw] max-h-[600px] quote-halo rounded-full blur-[100px]" />
 
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center relative z-10">
-        <blockquote className="quote-pulse serif text-2xl sm:text-3xl md:text-5xl italic leading-tight heading-color mb-10">
+        <blockquote className="quote-pulse serif text-[1.75rem] sm:text-3xl md:text-5xl italic leading-[1.2] heading-color mb-10">
           "Privacy isn't about hiding. It's about choosing who gets access to your financial information."
         </blockquote>
 
@@ -384,14 +406,36 @@ function PhilosophySection() {
 
 function HeritageSection() {
   return (
-    <section id="mining" className="py-20 sm:py-24 bg-main">
+    <section id="mining" className="py-16 sm:py-24 bg-main">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl serif mb-4 heading-color">Battle-Tested Heritage</h2>
           <p className="text-dim">Built on proven cryptographic systems, with defaults optimized for private peer-to-peer cash.</p>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="md:hidden space-y-3">
+          {COMPARISON_ROWS.map((row) => (
+            <article key={row.feature} className="comparison-mobile-card border border-subtle rounded-sm p-4">
+              <h3 className="mono text-[10px] uppercase tracking-[0.18em] text-faint mb-3">{row.feature}</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-faint mono text-[10px] uppercase tracking-[0.14em]">Juno</span>
+                  <span className="accent-text text-right">{row.juno}</span>
+                </div>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-faint mono text-[10px] uppercase tracking-[0.14em]">Zcash</span>
+                  <span className="text-dim text-right">{row.zcash}</span>
+                </div>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-faint mono text-[10px] uppercase tracking-[0.14em]">Monero</span>
+                  <span className="text-dim text-right">{row.monero}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="hidden md:block overflow-x-auto">
           <table className="comparison-table w-full text-left border-collapse min-w-[780px]">
             <thead>
               <tr className="border-b border-soft">
@@ -420,18 +464,18 @@ function HeritageSection() {
 
 function FAQSection() {
   return (
-    <section id="faq" className="py-24 sm:py-32 bg-elevated">
+    <section id="faq" className="py-16 sm:py-24 lg:py-32 bg-elevated">
       <div className="max-w-3xl mx-auto px-5 sm:px-6">
         <h2 className="text-3xl sm:text-4xl serif mb-12 text-center heading-color">Common Questions</h2>
 
         <div className="space-y-4">
           {FAQS.map((faq) => (
             <details key={faq.question} className="faq-item group rounded-sm overflow-hidden">
-              <summary className="flex justify-between items-center p-6 cursor-pointer transition-colors list-none">
-                <span className="serif text-xl italic heading-color">{faq.question}</span>
+              <summary className="flex justify-between items-center p-5 sm:p-6 cursor-pointer transition-colors list-none gap-4">
+                <span className="serif text-lg sm:text-xl italic heading-color">{faq.question}</span>
                 <span className="faq-arrow text-faint transition-transform">↓</span>
               </summary>
-              <div className="p-6 pt-0 body-muted leading-relaxed faq-answer-border">{faq.answer}</div>
+              <div className="p-5 sm:p-6 pt-0 body-muted leading-relaxed faq-answer-border">{faq.answer}</div>
             </details>
           ))}
         </div>
@@ -442,9 +486,9 @@ function FAQSection() {
 
 function FooterSection() {
   return (
-    <footer className="py-16 sm:py-20 border-t border-subtle bg-main relative">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-        <div className="col-span-1">
+    <footer className="py-14 sm:py-20 border-t border-subtle bg-main relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12">
+        <div className="col-span-1 sm:col-span-2 md:col-span-1">
           <div className="serif text-2xl italic heading-color mb-6 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full site-dot" />
             Juno Cash
