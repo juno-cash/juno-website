@@ -117,19 +117,11 @@ body:not(.light-mode) .bg-elevated {
 }
 
 body.light-mode .site-shell {
-  background: linear-gradient(180deg, #fcfaf5 0%, #f7f1e7 34%, #f2eadf 66%, #fcfaf5 100%);
+  background: #ffffff;
 }
 
 body.light-mode .site-shell::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(120% 75% at 8% 0%, rgba(224, 201, 166, 0.42), transparent 58%),
-    radial-gradient(120% 75% at 92% 100%, rgba(190, 156, 111, 0.28), transparent 54%),
-    linear-gradient(180deg, #fdfbf7 0%, #f5eee3 36%, #f2e9dc 64%, #fbf9f4 100%);
+  content: none;
 }
 
 body.light-mode .section-gradient,
@@ -529,9 +521,9 @@ h1:hover .gradient-text {
 }
 
 body.light-mode {
-  --bg-main: #fcfaf5;
-  --bg-subtle: #f5efe4;
-  --bg-elevated: #faf6ee;
+  --bg-main: #ffffff;
+  --bg-subtle: #ffffff;
+  --bg-elevated: #ffffff;
 
   --text-primary: rgba(26, 26, 26, 0.96);
   --text-soft: rgba(26, 26, 26, 0.92);
@@ -551,12 +543,12 @@ body.light-mode {
   --panel-hover-bg: rgba(255, 255, 255, 0.95);
   --panel-hover-border: rgba(125, 95, 51, 0.24);
 
-  --orb-one: rgba(224, 201, 166, 0.46);
-  --orb-two: rgba(190, 156, 111, 0.3);
+  --orb-one: transparent;
+  --orb-two: transparent;
 
   --text-glow: none;
 
-  --nav-bg: rgba(250, 251, 248, 0.9);
+  --nav-bg: rgba(255, 255, 255, 0.92);
   --nav-border: rgba(125, 95, 51, 0.12);
   --toggle-border: rgba(125, 95, 51, 0.24);
   --toggle-hover-bg: rgba(125, 95, 51, 0.07);
@@ -575,13 +567,12 @@ body.light-mode {
 }
 
 body.light-mode .sparkle {
-  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  opacity: 0.18;
+  display: none;
 }
 
 body.light-mode .sparkle::before,
 body.light-mode .sparkle::after {
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: none;
 }
 
 body.light-mode .gradient-text {
