@@ -487,14 +487,15 @@ function FAQSection() {
 function FooterSection() {
   return (
     <footer className="py-14 sm:py-20 border-t border-subtle bg-main relative">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12">
         <div className="col-span-1 sm:col-span-2 md:col-span-1">
           <div className="serif text-2xl italic heading-color mb-6 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full site-dot" />
             Juno Cash
           </div>
           <p className="text-dim text-sm leading-relaxed mb-6">Private digital cash. Every transaction shielded. No compromises.</p>
-          <div className="mono text-xs text-faint">
+          <div className="hidden md:block mono text-xs text-faint">
             © 2026 Juno Project.
             <br />
             Open Source (MIT).
@@ -515,6 +516,15 @@ function FooterSection() {
             </ul>
           </div>
         ))}
+        </div>
+
+        <div className="mt-10 pt-6 border-t border-subtle md:hidden">
+          <div className="mono text-xs text-faint text-center">
+            © 2026 Juno Project.
+            <br />
+            Open Source (MIT).
+          </div>
+        </div>
       </div>
     </footer>
   )
