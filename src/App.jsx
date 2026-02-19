@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 const NAV_LINKS = [
-  { label: 'Technology', pageHref: '/technology', homeAnchor: '#technology' },
-  { label: 'Philosophy', homeAnchor: '#philosophy' },
-  { label: 'Mining', homeAnchor: '#mining' },
+  { label: 'Home', pageHref: '/' },
+  { label: 'Technology', pageHref: '/technology' },
   { label: 'FAQ', pageHref: '/faq' },
 ]
 
@@ -614,19 +613,15 @@ function isExternalHref(href) {
   return href.startsWith('http://') || href.startsWith('https://')
 }
 
-function resolveNavHref(link, currentPage) {
-  if (link.pageHref) {
-    return link.pageHref
-  }
-
-  if (currentPage === 'home') {
-    return link.homeAnchor
-  }
-
-  return `/${link.homeAnchor}`
+function resolveNavHref(link) {
+  return link.pageHref
 }
 
 function isNavLinkActive(link, currentPage) {
+  if (currentPage === 'home') {
+    return link.pageHref === '/'
+  }
+
   if (currentPage === 'technology') {
     return link.pageHref === '/technology'
   }
@@ -668,11 +663,9 @@ function HeaderNav({ theme, onToggleTheme, currentPage }) {
   const logoSrc = LOGO_BY_THEME[theme] ?? LOGO_BY_THEME.dark
   const navLinks = NAV_LINKS.map((link) => ({
     ...link,
-    href: resolveNavHref(link, currentPage),
+    href: resolveNavHref(link),
   }))
-  const isLaunchPage = currentPage === 'get-started' || currentPage === 'technology'
-  const desktopAction = isLaunchPage ? { label: 'Launch App', href: '/' } : { label: 'Get Started', href: '/get-started' }
-  const mobileAction = isLaunchPage ? { label: 'Home', href: '/' } : { label: 'Start', href: '/get-started' }
+  const action = { label: 'Get Started', href: '/get-started' }
 
   return (
     <nav className="site-nav fixed w-full z-50 top-0 left-0 border-b">
@@ -724,11 +717,11 @@ function HeaderNav({ theme, onToggleTheme, currentPage }) {
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
-          <a href={mobileAction.href} className="md:hidden px-3 py-1.5 border rounded-full mono text-[10px] uppercase action-link">
-            {mobileAction.label}
+          <a href={action.href} className="md:hidden px-3 py-1.5 border rounded-full mono text-[10px] uppercase action-link">
+            {action.label}
           </a>
-          <a href={desktopAction.href} className="hidden md:block px-6 py-2 border rounded-full mono text-xs uppercase action-link">
-            {desktopAction.label}
+          <a href={action.href} className="hidden md:block px-6 py-2 border rounded-full mono text-xs uppercase action-link">
+            {action.label}
           </a>
         </div>
       </div>
