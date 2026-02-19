@@ -273,7 +273,7 @@ function HeroSection() {
         <span className="mono text-[10px] uppercase tracking-widest">Mainnet Live</span>
       </div>
 
-      <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light leading-[0.96] tracking-tight mb-8 overflow-visible max-w-6xl">
+      <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light leading-[1] tracking-tight mb-8 overflow-visible max-w-6xl">
         <span className="block hero-leading">Private</span>
         <span className="block serif italic gradient-text text-glow hero-accent-line pb-2 md:pb-3">Digital Cash</span>
       </h1>

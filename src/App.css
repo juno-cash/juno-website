@@ -117,7 +117,7 @@ body:not(.light-mode) .bg-elevated {
 }
 
 body.light-mode .site-shell {
-  background: linear-gradient(180deg, #fafbf8 0%, #f3f6ef 34%, #eef2e8 66%, #fafbf8 100%);
+  background: linear-gradient(180deg, #fcfaf5 0%, #f7f1e7 34%, #f2eadf 66%, #fcfaf5 100%);
 }
 
 body.light-mode .site-shell::before {
@@ -127,9 +127,9 @@ body.light-mode .site-shell::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(120% 75% at 8% 0%, rgba(173, 188, 161, 0.42), transparent 58%),
-    radial-gradient(120% 75% at 92% 100%, rgba(132, 152, 118, 0.3), transparent 54%),
-    linear-gradient(180deg, #fbfcf9 0%, #f1f5ed 36%, #edf1e7 64%, #fafbf8 100%);
+    radial-gradient(120% 75% at 8% 0%, rgba(224, 201, 166, 0.42), transparent 58%),
+    radial-gradient(120% 75% at 92% 100%, rgba(190, 156, 111, 0.28), transparent 54%),
+    linear-gradient(180deg, #fdfbf7 0%, #f5eee3 36%, #f2e9dc 64%, #fbf9f4 100%);
 }
 
 body.light-mode .section-gradient,
@@ -267,6 +267,8 @@ body.light-mode .bg-elevated {
 
 .hero-accent-line {
   overflow: visible;
+  line-height: 1.05;
+  padding-bottom: 0.08em;
 }
 
 h1:hover .gradient-text {
@@ -527,9 +529,9 @@ h1:hover .gradient-text {
 }
 
 body.light-mode {
-  --bg-main: #fafbf8;
-  --bg-subtle: #eef2e8;
-  --bg-elevated: #f8f9f5;
+  --bg-main: #fcfaf5;
+  --bg-subtle: #f5efe4;
+  --bg-elevated: #faf6ee;
 
   --text-primary: rgba(26, 26, 26, 0.96);
   --text-soft: rgba(26, 26, 26, 0.92);
@@ -537,53 +539,53 @@ body.light-mode {
   --text-dim: rgba(26, 26, 26, 0.6);
   --text-faint: rgba(26, 26, 26, 0.45);
 
-  --accent: #4a5d43;
-  --accent-soft: rgba(74, 93, 67, 0.08);
+  --accent: #7d5f33;
+  --accent-soft: rgba(125, 95, 51, 0.1);
 
-  --line-soft: rgba(74, 93, 67, 0.14);
-  --line-subtle: rgba(74, 93, 67, 0.1);
-  --line-quiet: rgba(74, 93, 67, 0.08);
+  --line-soft: rgba(125, 95, 51, 0.16);
+  --line-subtle: rgba(125, 95, 51, 0.12);
+  --line-quiet: rgba(125, 95, 51, 0.09);
 
   --panel-bg: rgba(255, 255, 255, 0.87);
-  --panel-border: rgba(74, 93, 67, 0.13);
+  --panel-border: rgba(125, 95, 51, 0.14);
   --panel-hover-bg: rgba(255, 255, 255, 0.95);
-  --panel-hover-border: rgba(74, 93, 67, 0.22);
+  --panel-hover-border: rgba(125, 95, 51, 0.24);
 
-  --orb-one: rgba(173, 188, 161, 0.45);
-  --orb-two: rgba(132, 152, 118, 0.32);
+  --orb-one: rgba(224, 201, 166, 0.46);
+  --orb-two: rgba(190, 156, 111, 0.3);
 
   --text-glow: none;
 
   --nav-bg: rgba(250, 251, 248, 0.9);
-  --nav-border: rgba(74, 93, 67, 0.1);
-  --toggle-border: rgba(74, 93, 67, 0.22);
-  --toggle-hover-bg: rgba(74, 93, 67, 0.06);
+  --nav-border: rgba(125, 95, 51, 0.12);
+  --toggle-border: rgba(125, 95, 51, 0.24);
+  --toggle-hover-bg: rgba(125, 95, 51, 0.07);
 
-  --metric-bg: rgba(74, 93, 67, 0.04);
-  --metric-border: rgba(74, 93, 67, 0.11);
+  --metric-bg: rgba(125, 95, 51, 0.045);
+  --metric-border: rgba(125, 95, 51, 0.12);
 
-  --btn-primary-bg: linear-gradient(180deg, #4a5d43 0%, #2a3028 100%);
+  --btn-primary-bg: linear-gradient(180deg, #7d5f33 0%, #4a3720 100%);
   --btn-primary-color: #fafbf8;
-  --btn-secondary-border: rgba(74, 93, 67, 0.24);
-  --btn-secondary-color: #2a3028;
-  --btn-secondary-hover-bg: rgba(74, 93, 67, 0.05);
+  --btn-secondary-border: rgba(125, 95, 51, 0.26);
+  --btn-secondary-color: #3f301d;
+  --btn-secondary-hover-bg: rgba(125, 95, 51, 0.06);
 
-  --quote-halo: rgba(74, 93, 67, 0.06);
-  --table-row-hover: rgba(74, 93, 67, 0.05);
+  --quote-halo: rgba(125, 95, 51, 0.065);
+  --table-row-hover: rgba(125, 95, 51, 0.055);
 }
 
 body.light-mode .sparkle {
-  background: radial-gradient(circle, #4a5d43 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
   opacity: 0.18;
 }
 
 body.light-mode .sparkle::before,
 body.light-mode .sparkle::after {
-  background: linear-gradient(90deg, transparent, #4a5d43, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 body.light-mode .gradient-text {
-  background: linear-gradient(135deg, #4a5d43 0%, #2a3028 100%);
+  background: linear-gradient(135deg, #7d5f33 0%, #4a3720 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -607,7 +609,7 @@ body.light-mode .btn-secondary:hover {
 
 @media (max-width: 768px) {
   .hero-accent-line {
-    padding-bottom: 0.28rem;
+    padding-bottom: 0.34rem;
   }
 
   .comparison-table tbody tr:hover {
