@@ -395,6 +395,78 @@ h1:hover .gradient-text {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.comparison-scroll-region {
+  scrollbar-gutter: stable both-edges;
+  border: 1px solid var(--line-subtle);
+  border-radius: 0.55rem;
+  background: color-mix(in srgb, var(--bg-main) 90%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text-soft) 5%, transparent);
+}
+
+.comparison-scroll-region:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--text-soft) 40%, transparent);
+  outline-offset: 2px;
+}
+
+.comparison-scroll-btn {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--bg-main) 88%, transparent);
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.comparison-scroll-btn:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--text-soft) 45%, transparent);
+}
+
+.comparison-scroll-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.comparison-sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: color-mix(in srgb, var(--bg-main) 93%, transparent);
+  box-shadow: 1px 0 0 var(--line-subtle);
+}
+
+.comparison-table thead .comparison-sticky-col {
+  z-index: 2;
+}
+
+.comparison-edge {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 3rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 3;
+}
+
+.comparison-edge.is-visible {
+  opacity: 1;
+}
+
+.comparison-edge-left {
+  left: 1px;
+  background: linear-gradient(to right, color-mix(in srgb, var(--bg-main) 96%, transparent), transparent);
+}
+
+.comparison-edge-right {
+  right: 1px;
+  background: linear-gradient(to left, color-mix(in srgb, var(--bg-main) 96%, transparent), transparent);
+}
+
 .comparison-mobile-card {
   background: color-mix(in srgb, var(--bg-main) 90%, transparent);
 }
@@ -654,6 +726,26 @@ body.light-mode .hero-mobile-stat {
 
 body.light-mode .comparison-mobile-card {
   background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode .comparison-scroll-region {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .comparison-scroll-btn {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+body.light-mode .comparison-sticky-col {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+body.light-mode .comparison-edge-left {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.96), transparent);
+}
+
+body.light-mode .comparison-edge-right {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.96), transparent);
 }
 
 body.light-mode .text-glow {

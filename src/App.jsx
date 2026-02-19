@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
 const NAV_LINKS = [
@@ -404,6 +404,115 @@ function PhilosophySection() {
   )
 }
 
+function DesktopComparisonTable() {
+  const scrollerRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollerRef.current
+    if (!el) {
+      return
+    }
+
+    const max = el.scrollWidth - el.clientWidth
+    setCanScrollLeft(el.scrollLeft > 2)
+    setCanScrollRight(el.scrollLeft < max - 2)
+  }, [])
+
+  useEffect(() => {
+    updateScrollState()
+
+    const el = scrollerRef.current
+    if (!el) {
+      return
+    }
+
+    const onScroll = () => updateScrollState()
+    const onResize = () => updateScrollState()
+
+    el.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [updateScrollState])
+
+  const scrollByPage = (direction) => {
+    const el = scrollerRef.current
+    if (!el) {
+      return
+    }
+
+    const distance = Math.max(260, Math.floor(el.clientWidth * 0.7))
+    el.scrollBy({ left: direction * distance, behavior: 'smooth' })
+  }
+
+  return (
+    <div className="hidden md:block">
+      <div className="comparison-scroll-toolbar mb-3 flex items-center justify-between gap-4">
+        <p className="mono text-[10px] uppercase tracking-[0.18em] text-faint">Shift + mouse wheel or use arrows</p>
+        <div className="comparison-scroll-controls flex items-center gap-2">
+          <button
+            type="button"
+            className="comparison-scroll-btn"
+            onClick={() => scrollByPage(-1)}
+            disabled={!canScrollLeft}
+            aria-label="Scroll comparison table left"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            className="comparison-scroll-btn"
+            onClick={() => scrollByPage(1)}
+            disabled={!canScrollRight}
+            aria-label="Scroll comparison table right"
+          >
+            →
+          </button>
+        </div>
+      </div>
+
+      <div className="comparison-scroll-shell relative">
+        <div className={`comparison-edge comparison-edge-left ${canScrollLeft ? 'is-visible' : ''}`} />
+        <div className={`comparison-edge comparison-edge-right ${canScrollRight ? 'is-visible' : ''}`} />
+
+        <div
+          ref={scrollerRef}
+          className="comparison-scroll-region overflow-x-auto"
+          role="region"
+          aria-label="Juno, Zcash, and Monero feature comparison"
+          tabIndex={0}
+        >
+          <table className="comparison-table w-full text-left border-collapse min-w-[920px] lg:min-w-[980px]">
+            <thead>
+              <tr className="border-b border-soft">
+                <th className="comparison-sticky-col py-4 px-4 mono text-xs uppercase text-faint font-normal">Feature</th>
+                <th className="py-4 px-4 mono text-xs uppercase accent-text font-normal">Juno Cash</th>
+                <th className="py-4 px-4 mono text-xs uppercase text-faint font-normal">Zcash</th>
+                <th className="py-4 px-4 mono text-xs uppercase text-faint font-normal">Monero</th>
+              </tr>
+            </thead>
+            <tbody className="mono text-sm">
+              {COMPARISON_ROWS.map((row) => (
+                <tr key={row.feature} className="border-b border-subtle-row transition-colors">
+                  <td className="comparison-sticky-col py-6 px-4 text-primary-soft">{row.feature}</td>
+                  <td className="py-6 px-4 accent-text">{row.juno}</td>
+                  <td className="py-6 px-4 text-dim">{row.zcash}</td>
+                  <td className="py-6 px-4 text-dim">{row.monero}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function HeritageSection() {
   return (
     <section id="mining" className="py-20 sm:py-24 bg-main">
@@ -435,28 +544,7 @@ function HeritageSection() {
           ))}
         </div>
 
-        <div className="hidden md:block overflow-x-auto">
-          <table className="comparison-table w-full text-left border-collapse min-w-[780px]">
-            <thead>
-              <tr className="border-b border-soft">
-                <th className="py-4 px-4 mono text-xs uppercase text-faint font-normal">Feature</th>
-                <th className="py-4 px-4 mono text-xs uppercase accent-text font-normal">Juno Cash</th>
-                <th className="py-4 px-4 mono text-xs uppercase text-faint font-normal">Zcash</th>
-                <th className="py-4 px-4 mono text-xs uppercase text-faint font-normal">Monero</th>
-              </tr>
-            </thead>
-            <tbody className="mono text-sm">
-              {COMPARISON_ROWS.map((row) => (
-                <tr key={row.feature} className="border-b border-subtle-row transition-colors">
-                  <td className="py-6 px-4 text-primary-soft">{row.feature}</td>
-                  <td className="py-6 px-4 accent-text">{row.juno}</td>
-                  <td className="py-6 px-4 text-dim">{row.zcash}</td>
-                  <td className="py-6 px-4 text-dim">{row.monero}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DesktopComparisonTable />
       </div>
     </section>
   )
