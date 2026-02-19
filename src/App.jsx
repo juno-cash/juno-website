@@ -479,7 +479,11 @@ function FooterSection() {
 function App() {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme')
-    return savedTheme === 'light' ? 'light' : 'dark'
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme
+    }
+
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
   })
   const [parallax, setParallax] = useState(0)
 
