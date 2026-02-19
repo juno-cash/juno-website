@@ -44,7 +44,7 @@
   --btn-primary-bg: linear-gradient(180deg, #f8f9f5 0%, #efeac6 100%);
   --btn-primary-color: #000;
   --btn-secondary-border: rgba(255, 255, 255, 0.2);
-  --btn-secondary-color: #fff;
+  --btn-secondary-color: #ffffff;
   --btn-secondary-hover-bg: rgba(255, 255, 255, 0.05);
 
   --quote-halo: rgba(255, 255, 255, 0.02);
@@ -558,9 +558,9 @@ body.light-mode {
 
   --btn-primary-bg: linear-gradient(180deg, #7d5f33 0%, #4a3720 100%);
   --btn-primary-color: #fafbf8;
-  --btn-secondary-border: rgba(125, 95, 51, 0.26);
-  --btn-secondary-color: #3f301d;
-  --btn-secondary-hover-bg: rgba(125, 95, 51, 0.06);
+  --btn-secondary-border: rgba(0, 0, 0, 0.24);
+  --btn-secondary-color: #000000;
+  --btn-secondary-hover-bg: rgba(0, 0, 0, 0.05);
 
   --quote-halo: rgba(125, 95, 51, 0.065);
   --table-row-hover: rgba(125, 95, 51, 0.055);
