@@ -121,6 +121,11 @@ const FOOTER_COLUMNS = [
   },
 ]
 
+const LOGO_BY_THEME = {
+  light: '/logos/juno-rec-black.svg',
+  dark: '/logos/juno-rec-white.svg',
+}
+
 function Icon({ type }) {
   const classes = 'w-10 h-10'
 
@@ -203,14 +208,13 @@ function SparkleField({ parallax }) {
 }
 
 function HeaderNav({ theme, onToggleTheme }) {
+  const logoSrc = LOGO_BY_THEME[theme] ?? LOGO_BY_THEME.dark
+
   return (
     <nav className="site-nav fixed w-full z-50 top-0 left-0 border-b">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-        <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="w-2 h-2 rounded-full site-dot group-hover:scale-125 transition-transform" />
-          <span className="serif text-xl sm:text-2xl tracking-wide brand-mark group-hover:opacity-85 transition-opacity italic">
-            Juno
-          </span>
+      <div className="max-w-7xl mx-auto px-6 sm:px-7 h-[4.75rem] sm:h-[5.5rem] flex items-center justify-between">
+        <div className="nav-brand group cursor-pointer">
+          <img src={logoSrc} alt="Juno Cash" className="brand-logo brand-logo-nav group-hover:opacity-85 transition-opacity" />
         </div>
 
         <div className="hidden md:flex items-center gap-8 mono text-xs tracking-widest muted uppercase">
@@ -265,7 +269,7 @@ function HeaderNav({ theme, onToggleTheme }) {
         </div>
       </div>
 
-      <div className="md:hidden px-5 sm:px-6 pb-3">
+      <div className="md:hidden px-6 sm:px-7 pb-4">
         <div className="mobile-nav-grid">
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className="mobile-nav-chip mono text-[9px] uppercase tracking-[0.16em] text-center">
@@ -280,7 +284,7 @@ function HeaderNav({ theme, onToggleTheme }) {
 
 function HeroSection() {
   return (
-    <header className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-5 sm:px-6 pt-36 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
+    <header className="relative min-h-[calc(100svh-8.75rem)] md:min-h-screen mt-[8.75rem] md:mt-0 flex flex-col justify-center items-center text-center px-5 sm:px-6 pt-6 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
       <div className="status-pill mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         <span className="mono text-[10px] uppercase tracking-widest">Mainnet Live</span>
@@ -484,15 +488,16 @@ function FAQSection() {
   )
 }
 
-function FooterSection() {
+function FooterSection({ theme }) {
+  const logoSrc = LOGO_BY_THEME[theme] ?? LOGO_BY_THEME.dark
+
   return (
     <footer className="py-14 sm:py-20 border-t border-subtle bg-main relative">
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12">
-        <div className="col-span-1 sm:col-span-2 md:col-span-1">
-          <div className="serif text-2xl italic heading-color mb-6 flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full site-dot" />
-            Juno Cash
+        <div className="hidden md:block col-span-1 sm:col-span-2 md:col-span-1">
+          <div className="mb-6">
+            <img src={logoSrc} alt="Juno Cash" className="brand-logo brand-logo-footer" />
           </div>
           <p className="text-dim text-sm leading-relaxed mb-6">Private digital cash. Every transaction shielded. No compromises.</p>
           <div className="hidden md:block mono text-xs text-faint">
@@ -518,11 +523,17 @@ function FooterSection() {
         ))}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-subtle md:hidden">
-          <div className="mono text-xs text-faint text-center">
-            © 2026 Juno Project.
-            <br />
-            Open Source (MIT).
+        <div className="mt-10 pt-8 border-t border-subtle md:hidden">
+          <div className="flex flex-col items-center text-center">
+            <img src={logoSrc} alt="Juno Cash" className="brand-logo brand-logo-footer-mobile mb-4" />
+            <p className="text-dim text-sm leading-relaxed mb-5 max-w-[18rem]">
+              Private digital cash. Every transaction shielded. No compromises.
+            </p>
+            <div className="mono text-xs text-faint">
+              © 2026 Juno Project.
+              <br />
+              Open Source (MIT).
+            </div>
           </div>
         </div>
       </div>
@@ -574,7 +585,7 @@ function App() {
         <HeritageSection />
         <FAQSection />
       </main>
-      <FooterSection />
+      <FooterSection theme={theme} />
     </div>
   )
 }

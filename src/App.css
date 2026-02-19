@@ -238,13 +238,30 @@ body.light-mode .bg-elevated {
   display: none;
 }
 
-.brand-mark {
-  color: var(--text-soft);
+.brand-logo {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  max-width: 100%;
 }
 
-.site-dot {
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.1rem;
+}
+
+.brand-logo-nav {
+  width: 6.8rem;
+}
+
+.brand-logo-footer {
+  width: 10.5rem;
+}
+
+.brand-logo-footer-mobile {
+  width: 9.4rem;
 }
 
 .muted {
@@ -681,6 +698,16 @@ body.light-mode .glass-panel:hover {
   .site-nav {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+  }
+
+  .nav-brand {
+    margin-top: 0.32rem;
+    padding-left: 0.24rem;
+    padding-right: 0.24rem;
+  }
+
+  .brand-logo-nav {
+    width: 5.4rem;
   }
 
   .mobile-nav-grid {
