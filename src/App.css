@@ -229,6 +229,12 @@ body.light-mode .bg-elevated {
   border-color: color-mix(in srgb, var(--text-soft) 45%, transparent);
 }
 
+.mobile-nav-chip-active {
+  color: var(--text-soft);
+  border-color: color-mix(in srgb, var(--text-soft) 40%, transparent);
+  background: color-mix(in srgb, var(--text-soft) 8%, transparent);
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -270,6 +276,11 @@ body.light-mode .bg-elevated {
 
 .nav-link {
   color: var(--text-muted);
+}
+
+.nav-link-active {
+  color: var(--text-soft);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
 }
 
 .nav-link:hover,
@@ -378,6 +389,149 @@ h1:hover .gradient-text {
 .accent-tag {
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.start-icon-shell {
+  border-color: var(--line-soft);
+  background: color-mix(in srgb, var(--bg-main) 88%, transparent);
+}
+
+.setup-step-node {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--bg-main) 90%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 1.6rem;
+  line-height: 1;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+.setup-code-block {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line-soft);
+  border-radius: 0.125rem;
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--bg-main) 82%, transparent);
+}
+
+.setup-inline-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-soft);
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, var(--bg-main) 82%, transparent);
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  padding: 0.15rem 0.4rem;
+}
+
+.setup-bullet {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 72%, transparent);
+}
+
+.emission-node-upcoming {
+  border-color: var(--line-soft);
+}
+
+.emission-node-done {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-main));
+}
+
+.emission-node-current {
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg-main));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.emission-node-core {
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+}
+
+.emission-node-core-done {
+  background: color-mix(in srgb, var(--accent) 75%, transparent);
+}
+
+.emission-node-core-current {
+  background: var(--accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.emission-step {
+  position: relative;
+}
+
+.emission-connector {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.875rem;
+  bottom: -3.375rem;
+  border-left-width: 1px;
+  border-left-style: dashed;
+  z-index: 0;
+}
+
+.emission-connector-complete {
+  border-left-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.emission-connector-upcoming {
+  border-left-color: var(--line-subtle);
+}
+
+.emission-status-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.2rem;
+  padding: 0.28rem 0.48rem;
+  border: 1px solid var(--line-soft);
+}
+
+.emission-status-done {
+  color: var(--text-soft);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.emission-status-current {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 42%, transparent);
+}
+
+@media (min-width: 640px) {
+  .emission-connector {
+    bottom: -3.875rem;
+  }
+}
+
+.accent-wash {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+}
+
+.resource-panel {
+  border: 1px solid var(--line-subtle);
+  background: color-mix(in srgb, var(--bg-main) 92%, transparent);
+}
+
+.resource-panel:hover {
+  border-color: var(--line-soft);
+  background: color-mix(in srgb, var(--bg-main) 86%, transparent);
 }
 
 .vertical-line {
@@ -589,6 +743,43 @@ h1:hover .gradient-text {
   animation: gentleFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.tech-fade-section {
+  opacity: 0;
+  animation: gentleFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tech-fade-section:nth-of-type(1) {
+  animation-delay: 0.2s;
+}
+
+.tech-fade-section:nth-of-type(2) {
+  animation-delay: 0.3s;
+}
+
+.tech-fade-section:nth-of-type(3) {
+  animation-delay: 0.4s;
+}
+
+.tech-fade-section:nth-of-type(4) {
+  animation-delay: 0.5s;
+}
+
+.tech-fade-section:nth-of-type(5) {
+  animation-delay: 0.6s;
+}
+
+.tech-fade-section:nth-of-type(6) {
+  animation-delay: 0.7s;
+}
+
+.tech-fade-section:nth-of-type(7) {
+  animation-delay: 0.8s;
+}
+
+.tech-fade-section:nth-of-type(8) {
+  animation-delay: 0.9s;
+}
+
 body.light-mode {
   --bg-main: #ffffff;
   --bg-subtle: #ffffff;
@@ -663,6 +854,12 @@ body.light-mode .mobile-nav-chip {
 body.light-mode .mobile-nav-chip:hover {
   color: rgba(0, 0, 0, 0.95);
   border-color: rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .mobile-nav-chip-active {
+  color: rgba(0, 0, 0, 0.95);
+  border-color: rgba(0, 0, 0, 0.28);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 body.light-mode .hero-mobile-stat {
