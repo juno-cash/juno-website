@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import './App.css'
 import {
   FOOTER_LINK_COLUMNS,
@@ -736,7 +736,7 @@ function HeaderNav({ theme, onToggleTheme, currentPage }) {
 
 function HeroSection() {
   return (
-    <header className="relative min-h-[calc(100svh-8.75rem)] md:min-h-screen mt-[8.75rem] md:mt-0 flex flex-col justify-center items-center text-center px-5 sm:px-6 pt-6 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
+    <header className="hero-section relative flex flex-col justify-center items-center text-center px-5 sm:px-6 pt-6 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
       <div className="status-pill mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         <span className="mono text-[10px] uppercase tracking-widest">Mainnet Live</span>
@@ -920,7 +920,7 @@ function HeritageSection() {
 
 function FAQPage() {
   return (
-    <main id="faq-top" className="relative z-10 pt-40 md:pt-40 pb-16 sm:pb-20">
+    <main id="faq-top" className="page-main relative z-10 pb-16 sm:pb-20">
       <header className="text-center px-5 sm:px-6 mb-14 sm:mb-16 fade-in">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6">
           <span className="serif italic gradient-text text-glow">Common Questions</span>
@@ -967,7 +967,7 @@ function FAQPage() {
 
 function GetStartedPage() {
   return (
-    <main className="relative z-10 pt-40 md:pt-40 pb-16 sm:pb-20">
+    <main className="page-main relative z-10 pb-16 sm:pb-20">
       <header className="text-center px-5 sm:px-6 mb-20 sm:mb-24 fade-in">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6">
           <span className="serif italic gradient-text text-glow">Get Started</span>
@@ -1172,7 +1172,7 @@ function GetStartedPage() {
 
 function TechnologyPage() {
   return (
-    <main className="relative z-10 pt-40 md:pt-40 pb-16 sm:pb-20">
+    <main className="page-main relative z-10 pb-16 sm:pb-20">
       <header className="text-center px-5 sm:px-6 mb-20 sm:mb-24 fade-in">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6">
           <span className="serif italic gradient-text text-glow">Technology</span>
@@ -1182,7 +1182,7 @@ function TechnologyPage() {
         </p>
       </header>
 
-      <div className="max-w-6xl mx-auto px-5 sm:px-6 space-y-24 sm:space-y-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 content-stack">
         <section className="tech-fade-section">
           <div className="mb-8">
             <span className="mono text-xs uppercase tracking-[0.2em] accent-text mb-4 block">Foundation</span>
@@ -1532,6 +1532,87 @@ function scrollToHash(hash, behavior = 'smooth') {
   return true
 }
 
+function isLikelyIOSSafari() {
+  const ua = navigator.userAgent
+  const isiOS = /iP(ad|hone|od)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  const isWebKit = /AppleWebKit/i.test(ua)
+  const isOtherIOSBrowser = /CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo/i.test(ua)
+
+  return isiOS && isWebKit && !isOtherIOSBrowser
+}
+
+function applyThemeColor(themeColor) {
+  const existingMeta = document.querySelector('meta[name="theme-color"][data-app-theme-color]')
+
+  if (!existingMeta) {
+    const meta = document.createElement('meta')
+    meta.setAttribute('name', 'theme-color')
+    meta.setAttribute('content', themeColor)
+    meta.setAttribute('data-app-theme-color', 'true')
+    document.head.appendChild(meta)
+    return
+  }
+
+  existingMeta.setAttribute('content', themeColor)
+}
+
+function applyColorSchemeMeta(theme) {
+  const existingMeta = document.querySelector('meta[name="color-scheme"][data-app-color-scheme]')
+  if (!existingMeta) {
+    const meta = document.createElement('meta')
+    meta.setAttribute('name', 'color-scheme')
+    meta.setAttribute('content', theme)
+    meta.setAttribute('data-app-color-scheme', 'true')
+    document.head.appendChild(meta)
+    return
+  }
+
+  existingMeta.setAttribute('content', theme)
+}
+
+function applyStatusBarStyleMeta(theme) {
+  const content = theme === 'light' ? 'default' : 'black'
+  const existingMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"][data-app-status-bar-style]')
+  if (!existingMeta) {
+    const meta = document.createElement('meta')
+    meta.setAttribute('name', 'apple-mobile-web-app-status-bar-style')
+    meta.setAttribute('content', content)
+    meta.setAttribute('data-app-status-bar-style', 'true')
+    document.head.appendChild(meta)
+    return
+  }
+
+  existingMeta.setAttribute('content', content)
+}
+
+function refreshThemeColorMeta(themeColor) {
+  const updateAndReplace = () => {
+    const currentMeta = document.querySelector('meta[name="theme-color"][data-app-theme-color]')
+    if (!currentMeta) {
+      applyThemeColor(themeColor)
+      return
+    }
+
+    currentMeta.setAttribute('content', themeColor)
+    const replacement = currentMeta.cloneNode(true)
+    replacement.setAttribute('content', themeColor)
+    currentMeta.replaceWith(replacement)
+  }
+
+  updateAndReplace()
+  window.requestAnimationFrame(updateAndReplace)
+  window.setTimeout(updateAndReplace, 0)
+
+  if (isLikelyIOSSafari()) {
+    const { pathname, search, hash } = window.location
+    const tempHash = hash === '#__theme_refresh' ? '#__theme_refresh2' : '#__theme_refresh'
+    window.history.replaceState(window.history.state, '', `${pathname}${search}${tempHash}`)
+    window.requestAnimationFrame(() => {
+      window.history.replaceState(window.history.state, '', `${pathname}${search}${hash}`)
+    })
+  }
+}
+
 function App() {
   const [currentPath, setCurrentPath] = useState(() => getPathname())
   const [isPageTransitioning, setIsPageTransitioning] = useState(false)
@@ -1566,9 +1647,19 @@ function App() {
     document.title = 'Juno Cash | Private Digital Currency'
   }, [currentPage])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.classList.toggle('light-mode', theme === 'light')
     localStorage.setItem('theme', theme)
+
+    const themeColor = theme === 'light' ? '#ffffff' : '#000000'
+    document.documentElement.dataset.theme = theme
+    document.documentElement.style.backgroundColor = themeColor
+    document.documentElement.style.colorScheme = theme
+    document.body.style.backgroundColor = themeColor
+    applyColorSchemeMeta(theme)
+    applyStatusBarStyleMeta(theme)
+    applyThemeColor(themeColor)
+    refreshThemeColorMeta(themeColor)
   }, [theme])
 
   const navigateInternal = useCallback(
@@ -1687,12 +1778,33 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const themeLabel = useMemo(() => (theme === 'light' ? 'dark' : 'light'), [theme])
+  const toggleTheme = useCallback(() => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light'
+    const nextThemeColor = nextTheme === 'light' ? '#ffffff' : '#000000'
+    localStorage.setItem('theme', nextTheme)
+
+    document.documentElement.dataset.theme = nextTheme
+    document.documentElement.style.backgroundColor = nextThemeColor
+    document.documentElement.style.colorScheme = nextTheme
+    document.body.style.backgroundColor = nextThemeColor
+    applyColorSchemeMeta(nextTheme)
+    applyStatusBarStyleMeta(nextTheme)
+    applyThemeColor(nextThemeColor)
+    refreshThemeColorMeta(nextThemeColor)
+
+    setTheme(nextTheme)
+
+    if (isLikelyIOSSafari()) {
+      window.setTimeout(() => {
+        window.location.reload()
+      }, 48)
+    }
+  }, [theme])
 
   return (
     <div className="site-shell antialiased selection:bg-yellow-100 selection:text-black" onClickCapture={handleInternalNavigation}>
       <SparkleField parallax={parallax} />
-      <HeaderNav theme={theme} onToggleTheme={() => setTheme(themeLabel)} currentPage={currentPage} />
+      <HeaderNav theme={theme} onToggleTheme={toggleTheme} currentPage={currentPage} />
       <div className={`page-frame ${isPageTransitioning ? 'is-transitioning' : ''}`}>
         {currentPage === 'get-started' ? <GetStartedPage /> : currentPage === 'technology' ? <TechnologyPage /> : currentPage === 'faq' ? <FAQPage /> : <HomePage />}
         <FooterSection theme={theme} />

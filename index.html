@@ -2,7 +2,49 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" data-app-color-scheme="true" />
+    <meta name="theme-color" content="#000000" data-app-theme-color="true" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" data-app-status-bar-style="true" />
+    <script>
+      ;(() => {
+        try {
+          const savedTheme = window.localStorage.getItem('theme')
+          const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+          const theme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : systemTheme
+          const themeColor = theme === 'light' ? '#ffffff' : '#000000'
+          const root = document.documentElement
+
+          root.dataset.theme = theme
+          root.style.backgroundColor = themeColor
+          root.style.colorScheme = theme
+          document.body && (document.body.style.backgroundColor = themeColor)
+
+          const colorSchemeMeta = document.querySelector('meta[name="color-scheme"][data-app-color-scheme]')
+          if (colorSchemeMeta) {
+            colorSchemeMeta.setAttribute('content', theme)
+          }
+
+          const statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"][data-app-status-bar-style]')
+          if (statusBarMeta) {
+            statusBarMeta.setAttribute('content', theme === 'light' ? 'default' : 'black')
+          }
+
+          const existingMeta = document.querySelector('meta[name="theme-color"][data-app-theme-color]')
+          if (existingMeta) {
+            existingMeta.setAttribute('content', themeColor)
+          } else {
+            const dynamicMeta = document.createElement('meta')
+            dynamicMeta.setAttribute('name', 'theme-color')
+            dynamicMeta.setAttribute('content', themeColor)
+            dynamicMeta.setAttribute('data-app-theme-color', 'true')
+            document.head.appendChild(dynamicMeta)
+          }
+        } catch (error) {
+          // no-op
+        }
+      })()
+    </script>
     <title>Juno Cash | Private Digital Currency</title>
   </head>
   <body>
