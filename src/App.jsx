@@ -280,7 +280,7 @@ function HeaderNav({ theme, onToggleTheme }) {
 
 function HeroSection() {
   return (
-    <header className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-5 sm:px-6 pt-32 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
+    <header className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-5 sm:px-6 pt-28 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
       <div className="status-pill mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         <span className="mono text-[10px] uppercase tracking-widest">Mainnet Live</span>
@@ -295,7 +295,7 @@ function HeroSection() {
         Every transaction shielded using zero-knowledge proofs. No transparent addresses. No exceptions.
       </p>
 
-      <div className="flex flex-col md:flex-row gap-3 sm:gap-6 items-center w-full max-w-sm md:max-w-none">
+      <div className="flex flex-col md:flex-row gap-3 sm:gap-6 items-center w-full max-w-sm md:w-auto md:max-w-none">
         <a href="#features" className="btn-primary w-full md:w-auto text-center px-10 py-4 rounded-sm mono text-sm uppercase tracking-widest font-semibold">
           Get Started
         </a>
@@ -327,7 +327,7 @@ function HeroSection() {
 
 function FeaturesSection() {
   return (
-    <section id="features" className="py-16 sm:py-24 lg:py-32 relative z-10 section-gradient">
+    <section id="features" className="py-20 sm:py-24 lg:py-32 relative z-10 section-gradient">
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="glass-panel p-6 sm:p-8 md:p-12 col-span-1 md:col-span-2 relative overflow-hidden group">
@@ -359,7 +359,7 @@ function FeaturesSection() {
 
 function TechnologySection() {
   return (
-    <section id="technology" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
+    <section id="technology" className="py-20 sm:py-24 lg:py-32 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center relative z-10">
         <span className="mono text-xs uppercase tracking-[0.2em] accent-text mb-4 block">Core Technology</span>
         <h2 className="text-4xl sm:text-5xl md:text-6xl serif mb-8 heading-color">Powered by Zero-Knowledge</h2>
@@ -386,7 +386,7 @@ function TechnologySection() {
 
 function PhilosophySection() {
   return (
-    <section id="philosophy" className="py-20 sm:py-32 md:py-40 flex items-center justify-center relative bg-subtle">
+    <section id="philosophy" className="py-24 sm:py-32 md:py-40 flex items-center justify-center relative bg-subtle">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] max-w-[600px] h-[75vw] max-h-[600px] quote-halo rounded-full blur-[100px]" />
 
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center relative z-10">
@@ -406,7 +406,7 @@ function PhilosophySection() {
 
 function HeritageSection() {
   return (
-    <section id="mining" className="py-16 sm:py-24 bg-main">
+    <section id="mining" className="py-20 sm:py-24 bg-main">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl serif mb-4 heading-color">Battle-Tested Heritage</h2>
@@ -464,7 +464,7 @@ function HeritageSection() {
 
 function FAQSection() {
   return (
-    <section id="faq" className="py-16 sm:py-24 lg:py-32 bg-elevated">
+    <section id="faq" className="py-20 sm:py-24 lg:py-32 bg-elevated">
       <div className="max-w-3xl mx-auto px-5 sm:px-6">
         <h2 className="text-3xl sm:text-4xl serif mb-12 text-center heading-color">Common Questions</h2>
 
