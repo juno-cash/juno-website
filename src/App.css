@@ -116,6 +116,29 @@ body:not(.light-mode) .bg-elevated {
   background: transparent !important;
 }
 
+body.light-mode .site-shell {
+  background: linear-gradient(180deg, #fafbf8 0%, #f3f6ef 34%, #eef2e8 66%, #fafbf8 100%);
+}
+
+body.light-mode .site-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 75% at 8% 0%, rgba(173, 188, 161, 0.42), transparent 58%),
+    radial-gradient(120% 75% at 92% 100%, rgba(132, 152, 118, 0.3), transparent 54%),
+    linear-gradient(180deg, #fbfcf9 0%, #f1f5ed 36%, #edf1e7 64%, #fafbf8 100%);
+}
+
+body.light-mode .section-gradient,
+body.light-mode .bg-main,
+body.light-mode .bg-subtle,
+body.light-mode .bg-elevated {
+  background: transparent !important;
+}
+
 .hero-leading,
 .heading-color {
   color: var(--text-soft);
