@@ -546,7 +546,10 @@ body.light-mode {
   --orb-one: transparent;
   --orb-two: transparent;
 
-  --text-glow: none;
+  --text-glow:
+    0 1px 0 rgba(255, 255, 255, 0.88),
+    0 0 14px rgba(0, 0, 0, 0.09),
+    0 0 28px rgba(0, 0, 0, 0.05);
 
   --nav-bg: rgba(255, 255, 255, 0.92);
   --nav-border: rgba(0, 0, 0, 0.12);
@@ -583,7 +586,7 @@ body.light-mode .gradient-text {
 }
 
 body.light-mode .text-glow {
-  text-shadow: none;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
 }
 
 body.light-mode .btn-secondary:hover {
