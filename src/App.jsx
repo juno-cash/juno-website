@@ -266,9 +266,9 @@ function HeaderNav({ theme, onToggleTheme }) {
       </div>
 
       <div className="md:hidden px-5 sm:px-6 pb-3">
-        <div className="mobile-nav-scroll no-scrollbar">
+        <div className="mobile-nav-grid">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="mobile-nav-chip mono text-[10px] uppercase tracking-[0.18em]">
+            <a key={link.href} href={link.href} className="mobile-nav-chip mono text-[9px] uppercase tracking-[0.16em] text-center">
               {link.label}
             </a>
           ))}
@@ -280,7 +280,7 @@ function HeaderNav({ theme, onToggleTheme }) {
 
 function HeroSection() {
   return (
-    <header className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-5 sm:px-6 pt-28 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
+    <header className="relative min-h-[92vh] md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-5 sm:px-6 pt-36 md:pt-20 pb-14 md:pb-0 z-10 fade-in">
       <div className="status-pill mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
         <span className="mono text-[10px] uppercase tracking-widest">Mainnet Live</span>
@@ -304,7 +304,7 @@ function HeroSection() {
         </a>
       </div>
 
-      <div className="mt-9 grid w-full max-w-md grid-cols-2 gap-3 text-left md:hidden">
+      <div className="mt-9 grid w-full max-w-md grid-cols-2 gap-3 text-center md:hidden">
         {HERO_STATS.map((item) => (
           <div key={item.label} className="hero-mobile-stat rounded-sm border border-soft p-3">
             <div className="mono text-[10px] text-faint uppercase mb-1 tracking-[0.16em]">{item.label}</div>
@@ -332,7 +332,7 @@ function FeaturesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="glass-panel p-6 sm:p-8 md:p-12 col-span-1 md:col-span-2 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 accent-glow rounded-full blur-[80px] group-hover:opacity-70 transition-opacity" />
-            <div className="relative z-10">
+            <div className="relative z-10 text-center md:text-left">
               <div className="mono text-xs accent-text accent-tag inline-block px-2 py-1 rounded mb-6">Mandatory Privacy</div>
               <h3 className="text-3xl sm:text-4xl serif mb-4 heading-color">Privacy that actually works.</h3>
               <p className="body-muted leading-relaxed max-w-lg">
@@ -343,7 +343,7 @@ function FeaturesSection() {
           </div>
 
           {FEATURE_CARDS.map((card) => (
-            <article key={card.title} className="glass-panel p-6 sm:p-8 relative group">
+            <article key={card.title} className="glass-panel p-6 sm:p-8 relative group text-center md:text-left">
               <div className="mb-5 sm:mb-6 opacity-80">
                 <Icon type={card.icon} />
               </div>
@@ -408,7 +408,7 @@ function HeritageSection() {
   return (
     <section id="mining" className="py-20 sm:py-24 bg-main">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
-        <div className="mb-12">
+        <div className="mb-12 text-center md:text-left">
           <h2 className="text-3xl sm:text-4xl serif mb-4 heading-color">Battle-Tested Heritage</h2>
           <p className="text-dim">Built on proven cryptographic systems, with defaults optimized for private peer-to-peer cash.</p>
         </div>

@@ -203,10 +203,20 @@ body.light-mode .bg-elevated {
   padding-bottom: 0.1rem;
 }
 
+.mobile-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
 .mobile-nav-chip {
-  flex: 0 0 auto;
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
-  padding: 0.45rem 0.75rem;
+  padding: 0.45rem 0.3rem;
+  min-height: 2.2rem;
   border: 1px solid var(--line-soft);
   border-radius: 999px;
   color: var(--text-muted);
@@ -673,6 +683,14 @@ body.light-mode .glass-panel:hover {
     -webkit-backdrop-filter: blur(14px);
   }
 
+  .mobile-nav-grid {
+    gap: 0.4rem;
+  }
+
+  .mobile-nav-chip {
+    letter-spacing: 0.12em !important;
+  }
+
   .glass-panel {
     animation-delay: 0s !important;
   }
@@ -683,5 +701,12 @@ body.light-mode .glass-panel:hover {
 
   .comparison-table tbody tr:hover {
     transform: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .mobile-nav-chip {
+    font-size: 8px !important;
+    letter-spacing: 0.09em !important;
   }
 }
