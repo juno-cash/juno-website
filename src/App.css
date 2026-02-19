@@ -593,6 +593,11 @@ body.light-mode .btn-secondary:hover {
   text-shadow: none;
 }
 
+body.light-mode .glass-panel,
+body.light-mode .glass-panel:hover {
+  box-shadow: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
