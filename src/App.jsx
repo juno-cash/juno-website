@@ -338,8 +338,6 @@ function FeaturesSection() {
 function TechnologySection() {
   return (
     <section id="technology" className="py-24 sm:py-32 relative overflow-hidden">
-      <div className="absolute left-1/2 top-0 bottom-0 w-px vertical-line" />
-
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center relative z-10">
         <span className="mono text-xs uppercase tracking-[0.2em] accent-text mb-4 block">Core Technology</span>
         <h2 className="text-4xl sm:text-5xl md:text-6xl serif mb-8 heading-color">Powered by Zero-Knowledge</h2>
