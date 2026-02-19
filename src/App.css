@@ -86,8 +86,34 @@ h4,
 }
 
 .site-shell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
   background: var(--bg-main);
   color: var(--text-primary);
+}
+
+body:not(.light-mode) .site-shell {
+  background: linear-gradient(180deg, #000000 0%, #050704 32%, #040603 68%, #000000 100%);
+}
+
+body:not(.light-mode) .site-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 75% at 10% 0%, rgba(74, 93, 67, 0.22), transparent 55%),
+    radial-gradient(120% 75% at 90% 100%, rgba(42, 48, 40, 0.2), transparent 52%),
+    linear-gradient(180deg, #000000 0%, #040503 35%, #020302 65%, #000000 100%);
+}
+
+body:not(.light-mode) .section-gradient,
+body:not(.light-mode) .bg-main,
+body:not(.light-mode) .bg-subtle,
+body:not(.light-mode) .bg-elevated {
+  background: transparent !important;
 }
 
 .hero-leading,
